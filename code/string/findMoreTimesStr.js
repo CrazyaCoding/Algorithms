@@ -64,5 +64,31 @@ function findMoreTimesStr2(str) {
 	};
 }
 
-// 思路三 去重 在用重复的数组再去重 剩下的就是最多的 字符串出现次数就是去重的次数
-// ...
+// findMoreTimesStr1的升级版 减少一次for循环
+function findMoreTimesStr3(str) {
+	let times = 0, // 用来存放出现的最多的次数
+		x = ''; // 用来存放出现次数最多的字符
+	let obj = {}; // 定义一个空对象 {a:3, b:4, ...} key是不重复的str字符串 value是出现的次数
+
+	for (let i = 0; i < str.length; i++) {
+		let key = str[i];
+
+		if (obj[key] > 0) {
+			// 已经在obj中，次数加1
+			obj[key] = obj[key] + 1;
+		} else {
+			// 初始化该字符的次数
+			obj[key] = 1;
+		}
+		// 判断当前字符的次数是否大于times，如果大于 则将x和times分别赋值对应的字符和次数
+		// 每次循环做一次判断，以保证times永远是字符出现的最大次数，x并且是这个字符
+		if(obj[key] > times) {
+			x = str[i];
+			times = obj[key]
+		}
+	}
+	return {
+		x,
+		times
+	};
+}
